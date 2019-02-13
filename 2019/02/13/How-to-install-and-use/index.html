@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="HexoMarkdownを使うによいブログを探していた所、素晴らしいエディタを発見。 https://hexo.io/themes/ これからこれで書こうかな。 githubのページに、デプロイしてみたのでその手順を。ちなみに30分位ですべて完了。 Githubページの作成Githubではレポジトリのブランチをgh-pagesにすることで、ページが作成出来る。 まず普通にレポジトリを作り、ローカル">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-13T14:35:04.000Z">
+<meta property="og:updated_time" content="2019-02-13T14:47:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="How to install and use">
 <meta name="twitter:description" content="HexoMarkdownを使うによいブログを探していた所、素晴らしいエディタを発見。 https://hexo.io/themes/ これからこれで書こうかな。 githubのページに、デプロイしてみたのでその手順を。ちなみに30分位ですべて完了。 Githubページの作成Githubではレポジトリのブランチをgh-pagesにすることで、ページが作成出来る。 まず普通にレポジトリを作り、ローカル">
@@ -98,11 +98,27 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cd fuga.github.io</span><br><span class="line">$ git branch gh-pages</span><br><span class="line">$ git checkout gh-pages</span><br></pre></td></tr></table></figure>
 <p>試しにindex.htmlを作成してcommit.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ echo &quot;Hello world&quot; &gt; index.html</span><br><span class="line">$ git add .</span><br><span class="line">$ git commit -m &apos;first commit&apos;</span><br><span class="line">$ git push -u origin gh-pages</span><br></pre></td></tr></table></figure></p>
 <p>すると、<a href="http://hoge.github.io/fuga" target="_blank" rel="noopener">http://hoge.github.io/fuga</a> で、<br>hellow worldが表示されるはず。</p>
+<h2 id="Hexoのインストール"><a href="#Hexoのインストール" class="headerlink" title="Hexoのインストール"></a>Hexoのインストール</h2><p>こいつも超簡単。</p>
+<p><a href="https://hexo.io/" target="_blank" rel="noopener">https://hexo.io/</a><br>TOPページにある通り、</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-cli -g</span><br><span class="line">$ hexo init blog</span><br><span class="line"># cd blog</span><br><span class="line"># npm install</span><br><span class="line"># hexo server</span><br></pre></td></tr></table></figure>
+<p>ひとまずこれで動く。</p>
+<h2 id="記事を書く"><a href="#記事を書く" class="headerlink" title="記事を書く"></a>記事を書く</h2><p>hexo new コマンドで.mdファイルを作成し、<br>その中で書くみたい。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new &quot;Hello&quot;</span><br><span class="line">INFO  Created: ~/path/to/your/_posts/hello.md</span><br><span class="line">$ vim ~/path/to/your/_posts/hello.md</span><br></pre></td></tr></table></figure>
+<p>Markdownで書いた後は、generateコマンド。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
+<p>とすればhtmlやassetsが生成される。</p>
+<h2 id="デプロイ"><a href="#デプロイ" class="headerlink" title="デプロイ"></a>デプロイ</h2><p>先程作ったgithubページへデプロイする。<br>_config.yml というファイルを編集する。<br>下のページが詳しい。</p>
+<p><a href="https://hexo.io/docs/deployment#How-does-it-work-exactly" target="_blank" rel="noopener">https://hexo.io/docs/deployment#How-does-it-work-exactly</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ vim _config.yml</span><br><span class="line"></span><br><span class="line">deploy:</span><br><span class="line">  type: git   </span><br><span class="line">  type: git</span><br><span class="line">  repo: https://hoge@github.com/hoge/fuga</span><br><span class="line">  branch: gh-pages</span><br></pre></td></tr></table></figure>
+<p>２つのgithubアカウントをつかっているので、repoのURLはhoge@というようにユーザー名を指定した。<br>編集後、再度generateしてデプロイする。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>これで自動的にレポジトリにプッシュされ、公開されるという手軽さ。</p>
+<p>今後はテーマやデザイン変更などもみていきたい。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shnr.github.io/blogtes/2019/02/13/How-to-install-and-use/" data-id="cjs3as36m0000rivu59qusm2r" class="article-share-link">Share</a>
+      <a data-url="https://shnr.github.io/blogtes/2019/02/13/How-to-install-and-use/" data-id="cjs3b76kx000232vufzfhdvn8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogtest/tags/hexo/">hexo</a></li></ul>
